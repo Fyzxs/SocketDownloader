@@ -3,7 +3,7 @@
 #include <map>
 #include "DownloadManager.h"
 
-namespace Laskon{
+namespace Fyzxs{
 namespace Downloader{
 
     size_t DownloadManager::Enqueue(const std::wstring uri, const DownloadType downloadType){

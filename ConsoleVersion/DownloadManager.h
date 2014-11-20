@@ -4,7 +4,7 @@
 #include <string>
 #include <map>
 
-namespace Laskon{
+namespace Fyzxs{
 namespace Downloader{
 
     enum DownloadState { 
