@@ -31,11 +31,31 @@ namespace Downloader{
     void DownloadManager::Cancel(const size_t downloadId){
         set_state(downloadId, DownloadState::kCancelRequested);
     }
+    void DownloadManager::Resume(const size_t downloadId){
+        set_state(downloadId, DownloadState::kResume);
+        //Poke the Thread Manager
+    }
 
     void DownloadManager::set_state(const size_t downloadId, const DownloadState downloadState){
         DownloadManager &dm = DownloadManager::get_instance();
         std::pair<std::wstring, DownloadState> dlPair = dm.get_download(downloadId);
         dlPair.second = downloadState;
+    }
+
+    static size_t Downloaded(const size_t downloadId){
+        DownloadManager &dm = DownloadManager::get_instance();
+        const std::wstring url = dm.get_downlaod(downloadId).first;
+        const std::wstring filename = dm.get_local_path(url);
+
+        std::ifstream in(filename, std::ifstream::ate | std::ifstream::binary);
+        const size_t size = in.tellg();
+
+        return size;
+    }
+
+    static std::wstring& get_local_path(const std::wstring& url){
+        size_t index = url.find_last_of('/');
+        return url.substr(index+1);
     }
 
     /*
