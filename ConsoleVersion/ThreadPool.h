@@ -39,7 +39,7 @@ namespace Downloader{
 
     };
 
-}
+}//githubtest
 }
 
     class DownloaderThread : std::Thread{
