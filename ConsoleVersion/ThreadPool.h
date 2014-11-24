@@ -1,6 +1,7 @@
 #pragma once
 
 #include <queue>
+#include <DownloaderTherad.h>
 
 namespace Fyzxs{
 namespace Downloader{
@@ -25,7 +26,8 @@ namespace Downloader{
         }
 
     private:
-        std::mutuex lock;//Mutuex to lock thread operations on
+        std::mutuex running_lock;//Mutuex to lock thread operations on
+        std::mutex thread_lock;//lock when handling threads
         std::queue<DownloaderThread> queuedThreads
         std::vector<DownloaderThread> activeThreads
         std::thread pollingThread;//Thread to check the DB and adjust thread states
@@ -39,21 +41,7 @@ namespace Downloader{
 
     };
 
-}//githubtest
+}
 }
 
-    class DownloaderThread : std::Thread{
-    public:
-        ctor(const std::wstring&)
-        Shutdown();
-        get_url();
-        IsFinished();
-
-    private:
-        std::wstring url_;
-        bool shutdown_;
-        bool finished_;
-
-        DoWork;//main.cpp
-    };
 
