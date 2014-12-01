@@ -1,6 +1,8 @@
 #include <stdint.h>
 #include <string>
+#include <fstream>
 #include <map>
+#include "DownloadItem.h"
 #include "DownloadManager.h"
 
 namespace Fyzxs{
@@ -42,18 +44,19 @@ namespace Downloader{
         dlPair.second = downloadState;
     }
 
-    static size_t Downloaded(const size_t downloadId){
+    size_t DownloadManager::Downloaded(const size_t downloadId){
         DownloadManager &dm = DownloadManager::get_instance();
-        const std::wstring url = dm.get_downlaod(downloadId).first;
-        const std::wstring filename = dm.get_local_path(url);
+        const std::wstring url = dm.get_download(downloadId).first;
 
-        std::ifstream in(filename, std::ifstream::ate | std::ifstream::binary);
-        const size_t size = in.tellg();
+        const wchar_t* filename = dm.get_local_path(url).c_str();
+        std::wifstream ifs(filename, std::ifstream::ate | std::ifstream::binary);
+
+        const size_t size = ifs.tellg();
 
         return size;
     }
 
-    static std::wstring& get_local_path(const std::wstring& url){
+    std::wstring& DownloadManager::get_local_path(const std::wstring& url){
         size_t index = url.find_last_of('/');
         return url.substr(index+1);
     }

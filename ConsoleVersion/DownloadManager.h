@@ -7,6 +7,10 @@
 namespace Fyzxs{
 namespace Downloader{
 
+    /*
+        This should be a real state machine. But... TO BAD FOR YO---- me... oh...
+        TODO: StateMachine-ify (hahaha)
+    */
     enum DownloadState { 
         kUnknown=0, 
         kQueued=1, 
@@ -17,11 +21,6 @@ namespace Downloader{
         kCancelled=6,
         kComplete=7,
         kFailed=8
-    };
-    enum DownloadType { 
-        kUnknown = 0, 
-        kHttp = 1, 
-        kLocalFile = 2 
     };
 
     class DownloadManager{

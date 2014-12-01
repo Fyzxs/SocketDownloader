@@ -5,15 +5,6 @@ and reading a few books; to get my head back around C++ object initialization.
 I think I've been in C# and Java land for too long
 */
 
-shutdown(){
-    shutdown_ = true;
-}
-
-IsFinished(){
-    return finished_;//Not locking as that level of timing doesn't matter
-}
-
-
 /*
     I'm currently strongly leaning towards this being shoved into
     it's own little wrapper class. 
@@ -27,4 +18,14 @@ IsFinished(){
     --- Or through the processof thinking; all that's shoved into the derived class;
     This now just needs the method for the workerThread.
 */
-abstract DoWork();//Virtual... yada yada
+//abstract DoWork();//Virtual... yada yada
+
+#include "DownloaderThread.h"
+
+namespace Fyzxs{
+namespace Downloader{
+    bool DownloaderThread::operator==(const DownloaderThread& rhs){
+        
+    }
+}
+}

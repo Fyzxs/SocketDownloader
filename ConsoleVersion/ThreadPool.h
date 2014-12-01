@@ -1,7 +1,10 @@
 #pragma once
 
 #include <queue>
-#include <DownloaderTherad.h>
+#include <thread>
+#include <mutex>
+#include <vector>
+#include "DownloaderThread.h"
 
 namespace Fyzxs{
 namespace Downloader{
@@ -21,21 +24,21 @@ namespace Downloader{
             TRYING THINGS!!! LEAVE ME ALONE!!! *crys*
         */
         static DownloaderThreadPool& get_instance(){
-            static DownloadThreadPool instance_;
+            static DownloaderThreadPool instance_;
             return instance_;
         }
 
     private:
-        std::mutuex running_lock;//Mutuex to lock thread operations on
+        std::mutex running_lock;//Mutuex to lock thread operations on
         std::mutex thread_lock;//lock when handling threads
-        std::queue<DownloaderThread> queuedThreads
-        std::vector<DownloaderThread> activeThreads
+        std::queue<DownloaderThread> queuedThreads;
+        std::vector<DownloaderThread> activeThreads;
         std::thread pollingThread;//Thread to check the DB and adjust thread states
 
         bool running_ = false;
         size_t maxThreads_ = 3;
         size_t pollPeriod_ = 1000;
-        size_t bufferSize_ = 1024
+        size_t bufferSize_ = 1024;
 
         void PollPersistantStore();//Clear finished threads THEN If running && activeThreads < max_threads then check store for {STATES}
 
@@ -43,5 +46,3 @@ namespace Downloader{
 
 }
 }
-
-
